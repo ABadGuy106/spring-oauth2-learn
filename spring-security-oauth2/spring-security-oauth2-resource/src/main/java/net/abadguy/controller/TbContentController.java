@@ -6,6 +6,7 @@ import net.abadguy.dto.ResponseResult;
 import net.abadguy.service.TbContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -92,5 +93,11 @@ public class TbContentController {
         } else {
             return new ResponseResult<>(Integer.valueOf(HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST.toString());
         }
+    }
+
+    @GetMapping("/r1")
+    @PreAuthorize("hasAnyAuthority('System')")//拥有System权限可访问此url
+    public String r1(){
+        return "访问资源1";
     }
 }
